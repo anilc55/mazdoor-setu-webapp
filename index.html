@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>मजदूर सेतु - Mazdoor Setu</title>
+    <meta name="description" content="Connecting workers with opportunities">
+    <meta name="theme-color" content="#4CAF50">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Styles & Icons -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== SPLASH SCREEN ========== -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="flower-logo-animation">
+                <div class="flower">
+                    <div class="center"></div>
+                    <div class="petal p1"></div>
+                    <div class="petal p2"></div>
+                    <div class="petal p3"></div>
+                    <div class="petal p4"></div>
+                    <div class="petal p5"></div>
+                </div>
+            </div>
+            
+            <div class="splash-text">
+                <h1 class="hindi-title">मजदूर सेतु</h1>
+                <h1 class="english-title">Mazdoor Setu</h1>
+                <p class="tagline">Connecting Workers with Opportunities</p>
+            </div>
+            
+            <div class="loading-indicator">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            
+            <div class="version">Version 1.0.0</div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN APP CONTAINER ========== -->
+    <div id="app-container" class="app-container hidden">
+        <!-- Language Selection Screen -->
+        <div id="language-screen" class="screen active">
+            <div class="screen-content">
+                <div class="language-header">
+                    <h2><i class="fas fa-globe-asia"></i> भाषा चुनें / Select Language</h2>
+                    <p>Choose your preferred language</p>
+                </div>
+                
+                <div class="language-cards">
+                    <div class="language-card active" data-lang="hi" onclick="selectLanguage('hi')">
+                        <div class="flag">🇮🇳</div>
+                        <div class="lang-info">
+                            <h3>हिंदी</h3>
+                            <p>Hindi</p>
+                        </div>
+                        <div class="checkmark">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="language-card" data-lang="en" onclick="selectLanguage('en')">
+                        <div class="flag">🌐</div>
+                        <div class="lang-info">
+                            <h3>English</h3>
+                            <p>अंग्रेजी</p>
+                        </div>
+                        <div class="checkmark">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary btn-continue" onclick="showLoginScreen()">
+                    <i class="fas fa-arrow-right"></i> जारी रखें / Continue
+                </button>
+                
+                <div class="language-footer">
+                    <p class="note">भाषा बाद में बदल सकते हैं / You can change language later</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen">
+            <div class="screen-content">
+                <!-- Back Button -->
+                <button class="btn-back" onclick="showLanguageScreen()">
+                    <i class="fas fa-arrow-left"></i> <span id="back-text">वापस</span>
+                </button>
+                
+                <!-- Login Header -->
+                <div class="login-header">
+                    <div class="login-logo">
+                        <div class="mini-flower">
+                            <div class="center"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                        </div>
+                    </div>
+                    <h2 id="login-title">लॉगिन / Login</h2>
+                    <p id="login-subtitle">अपना मोबाइल नंबर दर्ज करें</p>
+                </div>
+                
+                <!-- Login Options -->
+                <div class="login-options">
+                    <div class="option-card" onclick="showOTPSection()">
+                        <div class="option-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>OTP लॉगिन</h3>
+                            <p>मोबाइल नंबर से लॉगिन करें</p>
+                        </div>
+                        <div class="option-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="guestLogin()">
+                        <div class="option-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>अतिथि प्रवेश</h3>
+                            <p>बिना लॉगिन के देखें</p>
+                        </div>
+                        <div class="option-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="showRegistration()">
+                        <div class="option-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>पंजीकरण</h3>
+                            <p>नया अकाउंट बनाएं</p>
+                        </div>
+                        <div class="option-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Development Login (Visible only in dev mode) -->
+                    <div class="option-card dev-login" onclick="devLogin()" style="display: none;">
+                        <div class="option-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>Development Login</h3>
+                            <p>Bypass OTP for testing</p>
+                        </div>
+                        <div class="option-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OTP Section -->
+                <div id="otp-section" class="otp-section hidden">
+                    <div class="otp-header">
+                        <h3><i class="fas fa-sms"></i> OTP भेजें</h3>
+                        <p>अपना मोबाइल नंबर दर्ज करें</p>
+                    </div>
+                    
+                    <div class="phone-input-group">
+                        <div class="country-code">
+                            +91
+                        </div>
+                        <input type="tel" 
+                               id="phone-number" 
+                               class="phone-input" 
+                               placeholder="97025 59135"
+                               maxlength="10"
+                               pattern="[0-9]{10}"
+                               required>
+                    </div>
+                    
+                    <div class="error-message" id="phone-error"></div>
+                    
+                    <button class="btn-primary btn-send-otp" onclick="sendOTP()" id="send-otp-btn">
+                        <i class="fas fa-paper-plane"></i> OTP भेजें
+                    </button>
+                    
+                    <!-- OTP Input Section -->
+                    <div id="otp-input-section" class="otp-input-section hidden">
+                        <div class="otp-instructions">
+                            <p><i class="fas fa-info-circle"></i> 6 अंकों का OTP आपके मोबाइल पर भेजा गया है</p>
+                        </div>
+                        
+                        <div class="otp-inputs">
+                            <input type="number" class="otp-digit" maxlength="1" data-index="0">
+                            <input type="number" class="otp-digit" maxlength="1" data-index="1">
+                            <input type="number" class="otp-digit" maxlength="1" data-index="2">
+                            <input type="number" class="otp-digit" maxlength="1" data-index="3">
+                            <input type="number" class="otp-digit" maxlength="1" data-index="4">
+                            <input type="number" class="otp-digit" maxlength="1" data-index="5">
+                        </div>
+                        
+                        <div class="otp-timer" id="otp-timer">
+                            <i class="fas fa-clock"></i> OTP समय: <span id="timer">60</span> सेकंड
+                        </div>
+                        
+                        <button class="btn-success btn-verify-otp" onclick="verifyOTP()" id="verify-otp-btn">
+                            <i class="fas fa-check-circle"></i> वेरिफाई करें
+                        </button>
+                        
+                        <button class="btn-text btn-resend-otp" onclick="resendOTP()" id="resend-otp-btn" disabled>
+                            <i class="fas fa-redo"></i> OTP पुनः भेजें
+                        </button>
+                    </div>
+                    
+                    <!-- Terms & Conditions -->
+                    <div class="terms">
+                        <p>लॉगिन करके, आप हमारी <a href="#">शर्तें</a> और <a href="#">गोपनीयता नीति</a> स्वीकार करते हैं</p>
+                    </div>
+                </div>
+                
+                <!-- Registration Section -->
+                <div id="registration-section" class="registration-section hidden">
+                    <!-- Registration form will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Role Selection Screen -->
+        <div id="role-screen" class="screen">
+            <div class="screen-content">
+                <div class="role-header">
+                    <h2><i class="fas fa-user-tag"></i> अपनी भूमिका चुनें</h2>
+                    <p>Choose your role in the platform</p>
+                </div>
+                
+                <div class="role-cards">
+                    <div class="role-card" onclick="selectRole('mazdoor')">
+                        <div class="role-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <div class="role-info">
+                            <h3>मजदूर</h3>
+                            <p>Worker / Labour</p>
+                            <ul class="role-features">
+                                <li><i class="fas fa-check"></i> नौकरी खोजें</li>
+                                <li><i class="fas fa-check"></i> प्रोफाइल बनाएं</li>
+                                <li><i class="fas fa-check"></i> काम का इतिहास</li>
+                            </ul>
+                        </div>
+                        <div class="role-select">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="role-card" onclick="selectRole('contractor')">
+                        <div class="role-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="role-info">
+                            <h3>ठेकेदार</h3>
+                            <p>Contractor</p>
+                            <ul class="role-features">
+                                <li><i class="fas fa-check"></i> मजदूर खोजें</li>
+                                <li><i class="fas fa-check"></i> लीड खरीदें</li>
+                                <li><i class="fas fa-check"></i> प्रोजेक्ट मैनेज करें</li>
+                            </ul>
+                        </div>
+                        <div class="role-select">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="role-card" onclick="selectRole('owner')">
+                        <div class="role-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="role-info">
+                            <h3>मकान मालिक</h3>
+                            <p>Property Owner</p>
+                            <ul class="role-features">
+                                <li><i class="fas fa-check"></i> कमरा पोस्ट करें</li>
+                                <li><i class="fas fa-check"></i> टेनंट ढूंढें</li>
+                                <li><i class="fas fa-check"></i> प्रॉपर्टी मैनेज करें</li>
+                            </ul>
+                        </div>
+                        <div class="role-select">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="role-footer">
+                    <p class="note">भूमिका बाद में बदल सकते हैं / You can change role later</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Elements -->
+    <div id="recaptcha-container" style="display: none;"></div>
+    <div id="notification-container" class="notification-container"></div>
+    
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Initialize PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+        
+        // Show dev login in development mode
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            document.querySelector('.dev-login').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
