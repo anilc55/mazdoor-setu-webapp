@@ -1,0 +1,303 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+:root {
+    --primary: #4CAF50;
+    --secondary: #2196F3;
+    --accent: #FF9800;
+    --dark: #333;
+    --light: #f5f5f5;
+    --danger: #f44336;
+    --success: #4CAF50;
+    --warning: #ff9800;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Splash Screen */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.splash-content {
+    text-align: center;
+    color: white;
+}
+
+.logo-container {
+    margin-bottom: 2rem;
+}
+
+.flower-logo {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+}
+
+.flower-center {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    z-index: 2;
+}
+
+.petal {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 40px 40px 0 0;
+    transform-origin: bottom center;
+}
+
+.p1 { transform: rotate(0deg); }
+.p2 { transform: rotate(72deg); }
+.p3 { transform: rotate(144deg); }
+.p4 { transform: rotate(216deg); }
+.p5 { transform: rotate(288deg); }
+
+.loading-dots span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    margin: 0 5px;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Language Selector */
+.language-selector {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 90%;
+}
+
+.language-box h2 {
+    color: var(--dark);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.language-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.lang-btn {
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.lang-btn.active {
+    border-color: var(--primary);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.lang-btn:hover {
+    transform: translateY(-2px);
+}
+
+.continue-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.continue-btn:hover {
+    background: #45a049;
+}
+
+/* Login Screen */
+.login-screen {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 90%;
+}
+
+.back-btn {
+    font-size: 24px;
+    color: var(--dark);
+    cursor: pointer;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option-card {
+    padding: 1.5rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.option-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.option-card i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.option-card h3 {
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.option-card p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* OTP Form */
+.otp-form {
+    margin-top: 2rem;
+}
+
+.otp-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.otp-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.otp-inputs input {
+    flex: 1;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .language-selector,
+    .login-screen {
+        width: 95%;
+        padding: 1rem;
+    }
+    
+    .login-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .flower-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .flower-center {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .petal {
+        width: 70px;
+        height: 35px;
+    }
+}
