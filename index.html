@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मजदूर सेतु - Mazdoor Setu</title>
+    
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FF9800;
+            --dark: #333;
+            --light: #f5f5f5;
+            --danger: #f44336;
+            --white: #FFFFFF;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        /* ========== SPLASH SCREEN ========== */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .flower-logo {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .flower-center {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            z-index: 2;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 40px 40px 0 0;
+            transform-origin: bottom center;
+        }
+        
+        .petal:nth-child(1) { transform: rotate(0deg); }
+        .petal:nth-child(2) { transform: rotate(72deg); }
+        .petal:nth-child(3) { transform: rotate(144deg); }
+        .petal:nth-child(4) { transform: rotate(216deg); }
+        .petal:nth-child(5) { transform: rotate(288deg); }
+        
+        .splash-text {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .splash-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .splash-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .splash-text p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .loading-dots {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        .version {
+            position: absolute;
+            bottom: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* ========== MAIN APP ========== */
+        #app-container {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        /* ========== LANGUAGE SCREEN ========== */
+        .language-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .language-header h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .language-header p {
+            color: #666;
+        }
+        
+        .language-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .language-card.active {
+            border-color: var(--primary);
+            background: #E8F5E9;
+        }
+        
+        .language-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .flag {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.05);
+            border-radius: 50%;
+        }
+        
+        .lang-info {
+            flex: 1;
+        }
+        
+        .lang-info h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .lang-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .checkmark {
+            color: var(--primary);
+            font-size: 1.5rem;
+            opacity: 0;
+        }
+        
+        .language-card.active .checkmark {
+            opacity: 1;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* ========== LOGIN SCREEN ========== */
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #666;
+        }
+        
+        .login-options {
+            margin-bottom: 20px;
+        }
+        
+        .option-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .option-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .option-content {
+            flex: 1;
+        }
+        
+        .option-content h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .option-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .option-arrow {
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        /* ========== OTP SECTION ========== */
+        .otp-section {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .otp-section.active {
+            display: block;
+        }
+        
+        .phone-input-group {
+            display: flex;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .country-code {
+            padding: 15px 20px;
+            background: #f5f5f5;
+            color: var(--dark);
+            font-weight: 500;
+            border-right: 2px solid #ddd;
+        }
+        
+        .phone-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .phone-input::placeholder {
+            color: #999;
+        }
+        
+        .otp-input-section {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .otp-input-section.active {
+            display: block;
+        }
+        
+        .otp-instructions {
+            background: #E8F5E9;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .otp-instructions p {
+            color: var(--dark);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .otp-instructions i {
+            color: var(--primary);
+        }
+        
+        .otp-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .otp-digit {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            outline: none;
+        }
+        
+        .otp-digit:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        .otp-timer {
+            text-align: center;
+            margin: 20px 0;
+            padding: 12px;
+            background: #FFF3E0;
+            border-radius: 10px;
+            color: var(--accent);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-success {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-success:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn-text {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            color: var(--secondary);
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+        
+        .btn-text:disabled {
+            color: #999;
+            text-decoration: none;
+            cursor: not-allowed;
+        }
+        
+        /* ========== ROLE SELECTION ========== */
+        .role-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .role-header h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .role-header p {
+            color: #666;
+        }
+        
+        .role-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .role-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .role-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+        
+        .role-info {
+            flex: 1;
+        }
+        
+        .role-info h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .role-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .role-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .role-features li {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .role-features li i {
+            color: var(--primary);
+            font-size: 0.7rem;
+        }
+        
+        .role-select {
+            color: #999;
+            font-size: 1.5rem;
+        }
+        
+        /* ========== UTILITY CLASSES ========== */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* ========== ANIMATIONS ========== */
+        @keyframes bounce {
+            0%, 80%, 100% { 
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 480px) {
+            .screen {
+                padding: 20px;
+            }
+            
+            .language-card, .option-card, .role-card {
+                padding: 15px;
+            }
+            
+            .flower-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .flower-center {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .petal {
+                width: 70px;
+                height: 35px;
+            }
+            
+            .splash-text h1 {
+                font-size: 2rem;
+            }
+            
+            .splash-text h2 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* ========== NOTIFICATIONS ========== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            border-left-color: var(--primary);
+        }
+        
+        .notification.error {
+            border-left-color: var(--danger);
+        }
+        
+        .notification .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .notification.success .icon {
+            background: #E8F5E9;
+            color: var(--primary);
+        }
+        
+        .notification.error .icon {
+            background: #FFEBEE;
+            color: var(--danger);
+        }
+        
+        .notification .content {
+            flex: 1;
+        }
+        
+        .notification .content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .notification .content p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .notification .close {
+            background: transparent;
+            border: none;
+            color: #999;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+    </style>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ========== SPLASH SCREEN ========== -->
+    <div id="splash-screen">
+        <div class="flower-logo">
+            <div class="flower-center">MS</div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        
+        <div class="splash-text">
+            <h1>मजदूर सेतु</h1>
+            <h2>Mazdoor Setu</h2>
+            <p>Connecting Workers with Opportunities</p>
+        </div>
+        
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        
+        <div class="version">Version 1.0.0</div>
+    </div>
+
+    <!-- ========== MAIN APP CONTAINER ========== -->
+    <div id="app-container">
+        <!-- Language Selection Screen -->
+        <div id="language-screen" class="screen active">
+            <div class="language-header">
+                <h2><i class="fas fa-globe-asia"></i> भाषा चुनें / Select Language</h2>
+                <p>Choose your preferred language</p>
+            </div>
+            
+            <div class="language-card active" onclick="selectLanguage('hi')">
+                <div class="flag">🇮🇳</div>
+                <div class="lang-info">
+                    <h3>हिंदी</h3>
+                    <p>Hindi</p>
+                </div>
+                <div class="checkmark">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+            
+            <div class="language-card" onclick="selectLanguage('en')">
+                <div class="flag">🌐</div>
+                <div class="lang-info">
+                    <h3>English</h3>
+                    <p>अंग्रेजी</p>
+                </div>
+                <div class="checkmark">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+            
+            <butt
