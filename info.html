@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Guide - Mazdoor Setu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .steps {
+            margin: 15px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .contact-list {
+            list-style: none;
+        }
+        
+        .contact-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1>ऐप गाइड</h1>
+        <p>How to use Mazdoor Setu</p>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h3><i class="fas fa-info-circle"></i> ऐप के बारे में</h3>
+            <p>मजदूर सेतु एक प्लेटफॉर्म है जो मजदूरों, ठेकेदारों और मकान मालिकों को जोड़ता है।</p>
+            <p>यह ऐप निम्नलिखित सुविधाएं प्रदान करता है:</p>
+            <ul style="margin-left: 20px; color: #666;">
+                <li>मजदूर खोजें</li>
+                <li>कमरा खोजें</li>
+                <li>नौकरी/कमरा पोस्ट करें</li>
+                <li>सीधा संपर्क</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h3><i class="fas fa-play-circle"></i> कैसे उपयोग करें</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4>लॉगिन करें</h4>
+                        <p>अपने मोबाइल नंबर से OTP के द्वारा लॉगिन करें</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4>भूमिका चुनें</h4>
+                        <p>मजदूर, ठेकेदार या मकान मालिक में से अपनी भूमिका चुनें</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4>प्रोफाइल बनाएं</h4>
+                        <p>अपनी जानकारी, कौशल और दरें भरें</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h4>खोजें या पोस्ट करें</h4>
+                        <p>काम या कमरा खोजें या अपनी आवश्यकता पोस्ट करें</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3><i class="fas fa-phone-alt"></i> संपर्क करें</h3>
+            <p>किसी भी सहायता के लिए संपर्क करें:</p>
+            
+            <ul class="contact-list">
+                <li>
+                    <i class="fas fa-user" style="color: #4CAF50;"></i>
+                    <div>
+                        <strong>अनिल कुमार चौहान</strong>
+                        <p>Project Owner</p>
+                    </div>
+                </li>
+                
+                <li>
+                    <i class="fas fa-phone" style="color: #2196F3;"></i>
+                    <div>
+                        <strong>फोन नंबर</strong>
+                        <p>+91 97025 59135</p>
+                    </div>
+                </li>
+                
+                <li>
+                    <i class="fas fa-envelope" style="color: #FF9800;"></i>
+                    <div>
+                        <strong>ईमेल</strong>
+                        <p>support@mazdoorsetu.com</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <a href="home.html" class="btn">
+            <i class="fas fa-home"></i> होम पर वापस जाएं
+        </a>
+    </div>
+    
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
