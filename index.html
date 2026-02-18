@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hi-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>मजदूर सेतु | भाषा चुनें</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2e7d32">
+</head>
+<body>
+    <div class="language-container">
+        <div class="logo-large">
+            <span class="logo-icon">🔨</span>
+            <h1>मजदूर सेतु</h1>
+            <p>Mazdoor Setu</p>
+            <small>Connecting Workers with Opportunities</small>
+        </div>
+        
+        <div class="language-options">
+            <a href="home.html?lang=hi" class="lang-card">
+                <span class="lang-emoji">🇮🇳</span>
+                <span class="lang-name">हिंदी</span>
+                <span class="lang-sub">Hindi</span>
+            </a>
+            <a href="home.html?lang=en" class="lang-card">
+                <span class="lang-emoji">🌐</span>
+                <span class="lang-name">English</span>
+                <span class="lang-sub">अंग्रेजी</span>
+            </a>
+        </div>
+        
+        <p class="note">भाषा बाद में बदल सकते हैं<br>You can change language later</p>
+    </div>
+
+    <script>
+        // Save language preference
+        document.querySelectorAll('.lang-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const lang = e.currentTarget.href.includes('lang=hi') ? 'hi' : 'en';
+                localStorage.setItem('preferredLanguage', lang);
+            });
+        });
+    </script>
+</body>
+</html>
