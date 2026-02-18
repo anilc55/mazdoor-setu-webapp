@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लॉगिन | मजदूर सेतु</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>🔐 लॉगिन / रजिस्टर</h2>
+        <form>
+            <select class="form-control" required>
+                <option value="" disabled selected>आप कौन हैं? / Select User Type</option>
+                <option value="mazdoor">🧑‍🌾 मजदूर (Mazdoor)</option>
+                <option value="contractor">👷 ठेकेदार (Contractor)</option>
+                <option value="owner">🏠 मकान मालिक (Owner)</option>
+            </select>
+            <input type="tel" class="form-control" placeholder="मोबाइल नंबर (10 अंक)" pattern="[0-9]{10}" required>
+            <button type="submit" class="btn-primary">📲 OTP भेजें</button>
+        </form>
+        <p class="note">नया उपयोगकर्ता? यहीं रजिस्टर हो जाएगा।</p>
+        <p><a href="home.html">⬅ होम पर वापस</a></p>
+    </div>
+</body>
+</html>
