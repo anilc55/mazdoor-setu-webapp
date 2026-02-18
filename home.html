@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="hi-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>मजदूर सेतु | होम</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with Logo, Location, Profile -->
+        <header class="header">
+            <div class="logo-area">
+                <span class="logo">🔨 MS</span>
+                <span class="app-name">मजदूर सेतु</span>
+            </div>
+            <div class="header-actions">
+                <button class="location-btn" id="locationBtn" onclick="openLocationSelector()">
+                    📍 दिल्ली <span class="chevron">▼</span>
+                </button>
+                <a href="profile.html" class="profile-icon">👤</a>
+            </div>
+        </header>
+
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <h2>नमस्ते! 👋</h2>
+            <p>आज काम की तलाश में हैं?</p>
+        </div>
+
+        <!-- Main Grid Buttons (6 Large Buttons) - Exactly as you requested -->
+        <main class="main-grid">
+            <a href="find-worker.html" class="grid-card">
+                <span class="icon">🔍</span>
+                <span class="text-hi">मजदूर खोजें</span>
+                <span class="text-en">Find Worker</span>
+            </a>
+            <a href="find-job.html" class="grid-card">
+                <span class="icon">💼</span>
+                <span class="text-hi">काम खोजें</span>
+                <span class="text-en">Find Job</span>
+            </a>
+            <a href="find-room.html" class="grid-card">
+                <span class="icon">🏠</span>
+                <span class="text-hi">कमरा खोजें</span>
+                <span class="text-en">Find Room</span>
+            </a>
+            <a href="post-job.html" class="grid-card">
+                <span class="icon">📢</span>
+                <span class="text-hi">काम पोस्ट करें</span>
+                <span class="text-en">Post Job</span>
+            </a>
+            <a href="emergency.html" class="grid-card emergency">
+                <span class="icon">🆘</span>
+                <span class="text-hi">आपातकाल</span>
+                <span class="text-en">Emergency</span>
+            </a>
+            <a href="support.html" class="grid-card">
+                <span class="icon">❓</span>
+                <span class="text-hi">सहायता</span>
+                <span class="text-en">Support</span>
+            </a>
+        </main>
+
+        <!-- Quick Actions Bar -->
+        <div class="quick-actions">
+            <button class="quick-btn" onclick="window.location.href='nearby-workers.html'">
+                <span class="q-icon">🧑‍🤝‍🧑</span>
+                <span>Nearby</span>
+            </button>
+            <button class="quick-btn call-btn" onclick="makeCall()">
+                <span class="q-icon">📞</span>
+                <span>Call</span>
+            </button>
+            <button class="quick-btn whatsapp-btn" onclick="openWhatsApp()">
+                <span class="q-icon">💬</span>
+                <span>WhatsApp</span>
+            </button>
+            <button class="quick-btn map-btn" onclick="openMap()">
+                <span class="q-icon">🗺️</span>
+                <span>GPS</span>
+            </button>
+        </div>
+
+        <!-- Nearby Workers Section -->
+        <section class="nearby-section">
+            <div class="section-header">
+                <h3>🔹 आस-पास के मजदूर</h3>
+                <a href="find-worker.html">सभी देखें →</a>
+            </div>
+            <div class="worker-cards">
+                <div class="worker-card">
+                    <div class="worker-avatar">👨‍🔧</div>
+                    <div class="worker-info">
+                        <h4>राम कुमार</h4>
+                        <p>⚒️ राजमिस्त्री | ⭐ 4.5</p>
+                        <p>📍 2km दूर</p>
+                    </div>
+                    <button class="call-small" onclick="makeCall()">📞</button>
+                </div>
+                <div class="worker-card">
+                    <div class="worker-avatar">👨‍🪚</div>
+                    <div class="worker-info">
+                        <h4>सुरेश</h4>
+                        <p>🪚 बढ़ई | ⭐ 4.2</p>
+                        <p>📍 3.5km दूर</p>
+                    </div>
+                    <button class="call-small" onclick="makeCall()">📞</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Government Schemes Info -->
+        <div class="scheme-card">
+            <span class="scheme-icon">🏛️</span>
+            <div class="scheme-text">
+                <h4>सरकारी योजना</h4>
+                <p>मजदूर कार्ड योजना - ₹2000 तक सहायता</p>
+            </div>
+            <button class="scheme-btn" onclick="window.location.href='schemes.html'">जानें</button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="home.html" class="nav-item active">🏠</a>
+            <a href="search.html" class="nav-item">🔍</a>
+            <a href="notifications.html" class="nav-item">🔔</a>
+            <a href="profile.html" class="nav-item">👤</a>
+        </nav>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
