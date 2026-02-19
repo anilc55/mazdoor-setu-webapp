@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="hi-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>मजदूर सेतु | होम</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Nirmala UI', sans-serif;
+        }
+
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #e8f5e9;
+            --primary-dark: #1b5e20;
+            --accent: #ffb300;
+            --white: #ffffff;
+            --gray-bg: #f5f5f5;
+            --text: #263238;
+            --text-light: #757575;
+            --emergency: #d32f2f;
+            --gold: #ffd700;
+        }
+
+        body {
+            background: var(--primary-light);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 32px 32px 0 0;
+            box-shadow: 0 10px 30px rgba(0,40,0,0.1);
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--white);
+            border-bottom: 2px solid var(--primary-light);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .app-name {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .location-btn {
+            background: var(--primary-light);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 40px;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .profile-icon {
+            background: var(--primary-light);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--primary-dark);
+        }
+
+        /* Balance Card - NEW for Monetization */
+        .balance-card {
+            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 16px;
+            margin: 16px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(46,125,50,0.3);
+        }
+
+        .balance-left h4 {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .balance-left h2 {
+            font-size: 1.8rem;
+            margin-top: 4px;
+        }
+
+        .add-money-btn {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 16px;
+            margin-bottom: 20px;
+        }
+
+        .grid-card {
+            background: var(--primary-light);
+            border-radius: 20px;
+            padding: 16px 8px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .grid-card.premium {
+            background: linear-gradient(145deg, #fff9e6, #fff3cd);
+            border: 2px solid var(--gold);
+        }
+
+        .icon {
+            font-size: 2.2rem;
+            margin-bottom: 6px;
+        }
+
+        .text-hi {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .text-en {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .premium-badge {
+            background: var(--gold);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .emergency {
+            background: #ffebee;
+        }
+        .emergency .text-hi { color: var(--emergency); }
+
+        /* Ad Banner - NEW */
+        .ad-banner {
+            background: linear-gradient(145deg, #f5f5f5, #eeeeee);
+            margin: 20px 16px;
+            padding: 12px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px dashed var(--primary);
+        }
+
+        .ad-icon {
+            background: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .ad-text {
+            flex: 1;
+        }
+
+        .ad-text h4 {
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+
+        .ad-text p {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .ad-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Premium Workers Section - NEW */
+        .premium-section {
+            margin: 24px 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .section-header h3 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        .section-header a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .worker-cards {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 4px 0;
+            scrollbar-width: none;
+        }
+
+        .worker-cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .worker-card {
+            min-width: 160px;
+            background: var(--primary-light);
+            border-radius: 20px;
+            padding: 12px;
+            position: relative;
+        }
+
+        .worker-card.premium-worker {
+            background: linear-gradient(145deg, #fff9e6, white);
+            border: 2px solid var(--gold);
+        }
+
+        .premium-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--gold);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .worker-avatar {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .worker-info {
+            text-align: center;
+            margin: 8px 0;
+        }
+
+        .worker-info h4 {
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        .rating {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .unlock-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 0;
+            width: 100%;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        /* Sponsored Listing - NEW */
+        .sponsored-card {
+            background: white;
+            border: 2px solid var(--primary-light);
+            border-radius: 16px;
+            padding: 12px;
+            margin: 0 16px 20px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .sponsored-badge {
+            position: absolute;
+            top: -8px;
+            right: 12px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .sp-icon {
+            font-size: 2rem;
+        }
+
+        .sp-info {
+            flex: 1;
+        }
+
+        .sp-info h4 {
+            color: var(--primary-dark);
+        }
+
+        .sp-info p {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .sp-btn {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 12px 0;
+            border-top: 2px solid var(--primary-light);
+            position: sticky;
+            bottom: 0;
+        }
+
+        .nav-item {
+            font-size: 1.6rem;
+            text-decoration: none;
+            color: #9e9e9e;
+            position: relative;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .badge {
+            position: absolute;
+            top: -4px;
+            right: -8px;
+            background: var(--emergency);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-area">
+                <span class="logo">🔨 MS</span>
+                <span class="app-name">मजदूर सेतु</span>
+            </div>
+            <div class="header-actions">
+                <button class="location-btn" onclick="openLocationSelector()">
+                    📍 दिल्ली ▼
+                </button>
+                <a href="profile.html" class="profile-icon">👤</a>
+            </div>
+        </header>
+
+        <!-- Wallet/Balance Card - Monetization Feature 1 -->
+        <div class="balance-card">
+            <div class="balance-left">
+                <h4>आपकी वॉलेट बैलेंस</h4>
+                <h2>₹ 1,250</h2>
+                <small>24 Leads बाकी</small>
+            </div>
+            <button class="add-money-btn" onclick="addMoney()">💰 पैसे जोड़ें</button>
+        </div>
+
+        <!-- Main Grid Buttons -->
+        <div class="main-grid">
+            <a href="find-worker.html" class="grid-card">
+                <span class="icon">🔍</span>
+                <span class="text-hi">मजदूर खोजें</span>
+                <span class="text-en">Find Worker</span>
+            </a>
+            <a href="find-job.html" class="grid-card">
+                <span class="icon">💼</span>
+                <span class="text-hi">काम खोजें</span>
+                <span class="text-en">Find Job</span>
+            </a>
+            <a href="find-room.html" class="grid-card">
+                <span class="icon">🏠</span>
+                <span class="text-hi">कमरा खोजें</span>
+                <span class="text-en">Find Room</span>
+            </a>
+            <a href="post-job.html" class="grid-card premium">
+                <span class="icon">📢</span>
+                <span class="text-hi">प्रीमियम पोस्ट</span>
+                <span class="text-en">Premium Post</span>
+                <span class="premium-badge">🔥 बूस्ट</span>
+            </a>
+            <a href="emergency.html" class="grid-card emergency">
+                <span class="icon">🆘</span>
+                <span class="text-hi">आपातकाल</span>
+                <span class="text-en">Emergency</span>
+            </a>
+            <a href="support.html" class="grid-card">
+                <span class="icon">❓</span>
+                <span class="text-hi">सहायता</span>
+                <span class="text-en">Support</span>
+            </a>
+        </div>
+
+        <!-- Ad Banner - Monetization Feature 2 -->
+        <div class="ad-banner">
+            <div class="ad-icon">🪚</div>
+            <div class="ad-text">
+                <h4>सस्ते सीमेंट का ऑफर</h4>
+                <p>अभी खरीदें - 40% छूट</p>
+            </div>
+            <button class="ad-btn" onclick="window.open('https://example.com/cement', '_blank')">खरीदें</button>
+        </div>
+
+        <!-- Premium Workers Section - Monetization Feature 3 -->
+        <div class="premium-section">
+            <div class="section-header">
+                <h3>✨ प्रीमियम मजदूर</h3>
+                <a href="premium-workers.html">सभी देखें →</a>
+            </div>
+            <div class="worker-cards">
+                <div class="worker-card premium-worker">
+                    <span class="premium-tag">⭐ प्रीमियम</span>
+                    <div class="worker-avatar">👨‍🏗️</div>
+                    <div class="worker-info">
+                        <h4>राजू</h4>
+                        <div class="rating">⭐⭐⭐⭐⭐ 4.9</div>
+                        <p>राजमिस्त्री</p>
+                        <p>📍 2km | ₹400/दिन</p>
+                    </div>
+                    <button class="unlock-btn" onclick="unlockLead(30)">🔓 ₹30 में अनलॉक</button>
+                </div>
+                <div class="worker-card premium-worker">
+                    <span class="premium-tag">⭐ प्रीमियम</span>
+                    <div class="worker-avatar">👨‍🔧</div>
+                    <div class="worker-info">
+                        <h4>सुरेश</h4>
+                        <div class="rating">⭐⭐⭐⭐ 4.5</div>
+                        <p>बढ़ई</p>
+                        <p>📍 3km | ₹350/दिन</p>
+                    </div>
+                    <button class="unlock-btn" onclick="unlockLead(30)">🔓 ₹30 में अनलॉक</button>
+                </div>
+                <div class="worker-card">
+                    <div class="worker-avatar">👨‍🌾</div>
+                    <div class="worker-info">
+                        <h4>मोहन</h4>
+                        <div class="rating">⭐⭐⭐ 4.0</div>
+                        <p>मजदूर</p>
+                        <p>📍 1km | ₹300/दिन</p>
+                    </div>
+                    <button class="unlock-btn" onclick="unlockLead(20)">🔓 ₹20 में अनलॉक</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sponsored Listing - Monetization Feature 4 -->
+        <div class="sponsored-card">
+            <span class="sponsored-badge">🌟 प्रायोजित</span>
+            <div class="sp-icon">🏢</div>
+            <div class="sp-info">
+                <h4>एसी कमरा किराए पर</h4>
+                <p>📍 गाजियाबाद | ₹5,000/महीना</p>
+                <p>👤 ओम सिंह (वेरिफाइड मालिक)</p>
+            </div>
+            <button class="sp-btn" onclick="viewSponsor()">देखें</button>
+        </div>
+
+        <!-- Quick Actions (Modified for Monetization) -->
+        <div style="display: flex; gap: 12px; padding: 0 16px 20px 16px;">
+            <button class="add-money-btn" style="flex: 1; background: var(--primary-light); color: var(--primary-dark);" onclick="buyLeads()">
+                📦 Leads खरीदें
+            </button>
+            <button class="add-money-btn" style="flex: 1;" onclick="upgradeToPremium()">
+                ⭐ प्रीमियम बनें
+            </button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="home.html" class="nav-item active">🏠</a>
+            <a href="search.html" class="nav-item">🔍</a>
+            <a href="notifications.html" class="nav-item">
+                🔔
+                <span class="badge">3</span>
+            </a>
+            <a href="profile.html" class="nav-item">👤</a>
+        </nav>
+    </div>
+
+    <script>
+        // Location Selector
+        function openLocationSelector() {
+            const cities = ['दिल्ली', 'नोएडा', 'गुड़गांव', 'फरीदाबाद', 'गाजियाबाद'];
+            let current = document.querySelector('.location-btn').innerText.split(' ')[1];
+            let newCity = prompt('शहर चुनें:\n' + cities.join(', '), current);
+            if (cities.includes(newCity)) {
+                document.querySelector('.location-btn').innerHTML = `📍 ${newCity} ▼`;
+            }
+        }
+
+        // Monetization Functions
+        function addMoney() {
+            alert('वॉलेट में पैसे जोड़ें।\nरुपे कार्ड / UPI / नेट बैंकिंग से पेमेंट करें।');
+            // In real app: Open Razorpay / PhonePe payment gateway
+        }
+
+        function unlockLead(amount) {
+            if (confirm(`₹${amount} में यह लीड अनलॉक करें? आपके वॉलेट से पैसे कटेंगे।`)) {
+                alert('लीड अनलॉक हो गया! अब आप कॉन्टैक्ट देख सकते हैं।');
+                // In real app: Deduct from wallet, show contact
+            }
+        }
+
+        function buyLeads() {
+            alert('लीड पैक खरीदें:\n1-49 Leads: ₹30/lead\n50-99 Leads: ₹25/lead\n100+ Leads: ₹20/lead');
+        }
+
+        function upgradeToPremium() {
+            alert('प्रीमियम मेंबरशिप:\n✓ Verified Badge\n✓ Highlighted Listing\n✓ Homepage Boost\n✓ Special Visibility');
+        }
+
+        function viewSponsor() {
+            window.open('#', '_blank'); // Sponsored link
+        }
+    </script>
+</body>
+</html>
